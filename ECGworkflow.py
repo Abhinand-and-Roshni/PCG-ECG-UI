@@ -91,4 +91,5 @@ def ecg_workflow(waveform_path):
         print("patient abnormal")
         st.text("SUBJECT ECG ABNORMAL")
     else:
-        st.text("Actual Record of Patient -> No Ground Truth")
+        # ground truth not provided
+        st.text("Actual Record of Patient => No Ground Truth")
