@@ -6,7 +6,7 @@ import imageio as iio
 
 def getImageFeatures():
     img = iio.imread(
-        'C:/Users/Roshni/OneDrive/Desktop/Sem7/Project 1/ECG UI/spectrograms/Spectrogram.png')
+        './spectrograms/Spectrogram.png')
     xyz = radiomics.features.group1_features(img)
     output1 = pd.DataFrame()
     output1 = output1.append(xyz, ignore_index=True)

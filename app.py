@@ -15,9 +15,9 @@ from ECGworkflow import ecg_workflow
 from PCGworkflow import pcg_workflow
 
 
-#hi roshni can u see this ???
+# hi roshni can u see this ???
 
-def file_selector(folder_path='C:/Users/Roshni/OneDrive/Desktop/Sem7/Project 1/ECG UI/TestData/'):
+def file_selector(folder_path='./TestData/'):
     filenames = os.listdir(folder_path)
     #filenames = filenames.sort()
     print(filenames)

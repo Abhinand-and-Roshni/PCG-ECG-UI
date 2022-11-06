@@ -76,18 +76,21 @@ def ecg_workflow(waveform_path):
     st.text("-- ACTUAL RESULT FOR FILE " + waveform_path + " -- ")
     df_actual = pd.read_csv("2016_17_ALL_ECG_SUBJECTS_WITH_LABEL.csv")
     x = waveform_path
+    print("TESTTTTTTTTT"+waveform_path)
     # MODIFY [5] BASED ON THE FUNCTION FILE_SELECTOR'S FOLDER PATH !!
-    x = x.split(".")[0].split("/")[-1]
+    x = x.split(".")[1].split(".")[0].split("/")[-1]
     print("X IS ")
     print(x)
+    x = str(x)
     z = df_actual[df_actual['file_name'].str.contains(x)]
-    print(df_actual['file_name']+str("IS THE PATIENT!"))
+    #print(df_actual['file_name']+str("IS THE PATIENT!"))
     m = z['label']
     m = np.array(m)
-    if(m == "N" or m == "1"):
+    print("*****87:", m)
+    if(m == [1]):
         print("patient normal")
         st.text("SUBJECT ECG NORMAL")
-    elif(m == "O" or m == "A" or m == "-1"):
+    elif(m == [-1]):
         print("patient abnormal")
         st.text("SUBJECT ECG ABNORMAL")
     else:

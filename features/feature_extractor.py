@@ -125,7 +125,11 @@ class Features:
     def _load_mat_file(self, file_name):
         """Loads ECG signal to numpy array from .mat file."""
         try:
-            x = sio.loadmat(os.path.join(self.file_path, file_name))[
+            print("line 128: ", file_name)
+            file_name = file_name.split('.')[0]
+            print("line 132:", file_name)
+            print("line 129: ", self.file_path)
+            x = sio.loadmat(self.file_path)[
                 'val'][0].astype('float')
             return x
         except MatReadError:
