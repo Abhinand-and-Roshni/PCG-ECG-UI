@@ -22,4 +22,4 @@ def getSpectrogram(waveform_path):
     plt.axis('off')
     librosa.display.specshow(power)
     plt.savefig(
-        f'C:/Users/Roshni/OneDrive/Desktop/Sem7/Project 1/ECG UI/spectrograms/Spectrogram.png')
+        f'./spectrograms/Spectrogram.png')

@@ -11,7 +11,8 @@ from sklearn.decomposition import PCA
 import pickle as pkl
 from preprocessing import specConvert
 from PIL import Image
-from preprocessing import LOESS
+from preprocessing import LOESS 
+from preprocessing import regOfInterest
 
 
 def pcg_workflow(waveform_path):
@@ -20,6 +21,11 @@ def pcg_workflow(waveform_path):
     image = Image.open(
         './spectrograms/Spectrogram.png')
     st.image(image, caption='Mel Spectrogram')
+
+    regOfInterest.getRegions(waveform_path)
+    image1=Image.open('./RegionsofInterest.png')
+    st.image(image1,caption='Regions of Interest')
+    
     imageFeaturesExtracted = imagefeatures.getImageFeatures()
     st.write('Image features - ')
     st.dataframe(imageFeaturesExtracted)
