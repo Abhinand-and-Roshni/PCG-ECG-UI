@@ -29,7 +29,6 @@ def pcg_spec_workflow(waveform_path):
 
 def create_linearF_spec(AUDIOFILE):
 
-    #AUDIOFILE = "C:/MATLAB/physionet.org/files/challenge-2016/1.0.0/training-a/a0007.wav"
     print(AUDIOFILE)
     sample_rate, samples = wavfile.read(AUDIOFILE)
     samples = samples.astype(float)
@@ -37,12 +36,6 @@ def create_linearF_spec(AUDIOFILE):
     Xdb = librosa.amplitude_to_db(abs(X))
     plt.figure(figsize=(14, 5))
     librosa.display.specshow(Xdb, sr=sample_rate)
-    #plt.colorbar()
-    # if(L == "a"):
-    #     v = "C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project 1/physionet spectro/Images/Training-B/Abnormal/" + ID + ".jpg"
-        
-    # elif(L == "n"):
-    #     v = "C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project 1/physionet spectro/Images/Training-B/Normal/" + ID + ".jpg"
 
     v = "./img-ui/spectrogram_sample.jpg"
     plt.axis('off')
@@ -54,7 +47,6 @@ def create_linearF_spec(AUDIOFILE):
     img = img.crop((10,10,1095,395))
     img.save(v)
     return v
-    #img.show()    
     
 
 def get_clusters(FILE_NAME):
@@ -67,23 +59,18 @@ def get_clusters(FILE_NAME):
     kmeans = KMeans(n_clusters=N, random_state=0).fit(image_2D)
     clustered = kmeans.cluster_centers_[kmeans.labels_]
     clustered_3D = clustered.reshape(img.shape[0], img.shape[1], img.shape[2])
-    # x = kmeans.labels_
-    # unique, counts = np.unique(x, return_counts = True)
-    #print("NUMBER OF CLUSTERS = ", N)
-#     for x in range(0,N):
-#         print("CLUSTER: ", unique[x], "-> ", counts[x])
+
     plt.figure(figsize=(14, 5))
     plt.imshow(clustered_3D)
     
     plt.axis('off')
     plt.box(False)
-    #import matplotlib.pyplot as plt
+
     SAVE_FILE = "cluster_spec_img.jpg"
     plt.savefig(SAVE_FILE, bbox_inches = "tight", transparent = True)
     with Image.open(SAVE_FILE) as img:
         img.load()
     img = img.crop((10,10,1095,395))
     img.save(SAVE_FILE)
-    print("FINISHED CLUSTERING STEP ROSSSSHNI")
-   # img.show()
-    #print(unique, counts)
+    # print("FINISHED CLUSTERING STEP ROSSSSHNI")
+   
