@@ -18,7 +18,7 @@ from scipy import signal
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import scipy.io
-import requests  # pip install requests
+import requests
 from utils.plotting import plot_ecg
 
 
@@ -34,7 +34,7 @@ def ecg_workflow(waveform_path):
     ecg_features = Features(file_path=waveform_path, fs=fs,
                             feature_groups=['full_waveform_features'])
 
-    # Calculate ECG features
+    # FULL WAVEFORM FEATURES
     ecg_features.extract_features(
         filter_bandwidth=[3, 45], n_signals=None, show=True,
         labels=labels, normalize=True, polarity_check=True,
@@ -46,7 +46,7 @@ def ecg_workflow(waveform_path):
     rri_features = Features(file_path=waveform_path, fs=fs,
                             feature_groups=['rri_features'])
     print(waveform_path)
-    # Calculate ECG features
+    # RRI FEATURES
     rri_features.extract_features(
         filter_bandwidth=[3, 45], n_signals=None, show=True,
         labels=labels, normalize=True, polarity_check=True,
@@ -95,4 +95,4 @@ def ecg_workflow(waveform_path):
         st.text("SUBJECT ECG ABNORMAL")
     else:
         # ground truth not provided
-        st.text("Actual Record of Patient => No Ground Truth")
+        st.text("Ground Truth Inconclusive Result (~)")
