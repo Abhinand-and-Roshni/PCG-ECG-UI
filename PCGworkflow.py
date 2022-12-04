@@ -83,4 +83,5 @@ def pcg_workflow(waveform_path):
         print("patient abnormal")
         st.text("SUBJECT PCG ABNORMAL")
     else:
-        st.text("Actual Record of Patient -> No Ground Truth")
+        # ground truth not provided
+        st.text("Ground Truth Inconclusive Result (~)")
