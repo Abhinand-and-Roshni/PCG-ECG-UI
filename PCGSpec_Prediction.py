@@ -3,29 +3,23 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+from keras.models import load_model
+import cv2
 
 
 def prediction_8_cluster(path, waveform_path):
-        # code for prediction
 
         print("entered pcgspec_prediction file")
-# --------------------------- ADD THE MODEL PREDICTION CODE HERE WITH h5 FILE + i added the code snippet temporarily, feel free to delete ------
-        #img1 = image.load_img(path)
-        # model = load_model('my_model.h5')
-        # img_array = image.img_to_array(img)
+        model=load_model('model.h5')
+        model.compile(loss= keras.losses.categorical_crossentropy, optimizer='adam', metrics=['accuracy'])
+        img=cv2.imread(path)
+        img=cv2.resize(img,(64,64))
+        img=np.reshape(img,[1,64,64,3])
+        classes=model.predict(img)
+        prediction=np.argmax(classes,axis=1)
 
-        # img_batch = np.expand_dims(img_array, axis=0)
-        # prediction = model.predict(img1_batch)
-
-
-# ------------ temp value PLS CHANGE ONCE ADDING THE MODEL ------------------------------
-        prediction = 1
-
-# ------------------ DISPLAYING THE RESULTS ON UI ---------------------------------
-        # st.write("PREDICTION : "+str(val))
         st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
-        if(prediction == [-1]):
+        if(prediction == [0]):
             st.text("SUBJECT PCG NORMAL")
         else:
             st.text("SUBJECT PCG ABNORMAL")
