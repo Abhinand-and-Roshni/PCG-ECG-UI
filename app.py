@@ -13,7 +13,7 @@ from preprocessing import specConvert
 from PIL import Image
 from ECGworkflow import ecg_workflow
 from PCGworkflow import pcg_workflow
-
+from PCGSpect_workflow import pcg_spec_workflow
 
 # test msg updating 4th dec
 
@@ -69,6 +69,29 @@ with st.form(key='my_form'):
         ecg_workflow(waveform_path)
     except TypeError:
         st.error('Please enter MAT File!')
+
+
+
+st.title("PCG Classification - Spectrogram Clustering")
+with st.form(key='my_form2'):
+    #   waveform_path = st.file_uploader("Upload ECG file", type=["mat"])
+    waveform_path = None
+    try:
+        waveform_path = file_selector()
+        if(len(waveform_path) != 0):
+            st.write('You selected `%s`' % waveform_path)
+            st.success('File successfully loaded!', icon="✅")
+        else:
+            raise TypeError
+           
+    except TypeError:
+        print('No file Entered!')
+
+    submit_button = st.form_submit_button(label='Predict!')
+    try:
+        pcg_spec_workflow(waveform_path)
+    except ValueError:
+        st.error('Please enter WAV File!')
 
 
 #waveform_path = "C:/Users/Roshni/Downloads/A03035.mat"
