@@ -87,10 +87,10 @@ def ecg_workflow(waveform_path):
     m = z['label']
     m = np.array(m)
     print("*****87:", m)
-    if(m == [1]):
+    if(m == [-1]):
         print("patient normal")
         st.text("SUBJECT ECG NORMAL")
-    elif(m == [-1]):
+    elif(m == [1]):
         print("patient abnormal")
         st.text("SUBJECT ECG ABNORMAL")
     else:

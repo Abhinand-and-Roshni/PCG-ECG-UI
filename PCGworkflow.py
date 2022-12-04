@@ -56,7 +56,7 @@ def pcg_workflow(waveform_path):
     st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
     print("PREDICTION!!!!!")
     print(prediction)
-    if(prediction == [1]):
+    if(prediction == [-1]):
         st.text("SUBJECT PCG NORMAL")
     else:
         st.text("SUBJECT PCG ABNORMAL")
@@ -76,10 +76,10 @@ def pcg_workflow(waveform_path):
     z = df_actual[df_actual['file_name'].str.contains(x)]
     m = z['label']
     m = np.array(m)
-    if(m == [1]):
+    if(m == [-1]):
         print("patient normal")
         st.text("SUBJECT PCG NORMAL")
-    elif(m == [-1]):
+    elif(m == [1]):
         print("patient abnormal")
         st.text("SUBJECT PCG ABNORMAL")
     else:

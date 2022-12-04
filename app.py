@@ -96,17 +96,13 @@ with st.form(key='my_form2'):
         # path = "cluster_spec_img.jpg" HAS THE IMAGE OF 8 CLUSTERED K MEANS SPECTROGRAM 
 
         pred_path = "cluster_spec_img.jpg"
-        val = prediction_8_cluster(pred_path)
-        # st.write("PREDICTION : "+str(val))
-        if(val == -1):
-            st.write("NORMAL")
-        elif(val == 1):
-            st.write("ABNORMAL")
+        prediction_8_cluster(pred_path, waveform_path)
+
 
 
     except ValueError:
-        st.error('Please enter WAV File!')
+            st.error('Please enter WAV File!')
 
 
-#waveform_path = "C:/Users/Roshni/Downloads/A03035.mat"
-# print(waveform_path)
+    #waveform_path = "C:/Users/Roshni/Downloads/A03035.mat"
+    # print(waveform_path)
