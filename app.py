@@ -14,6 +14,7 @@ from PIL import Image
 from ECGworkflow import ecg_workflow
 from PCGworkflow import pcg_workflow
 from PCGSpect_workflow import pcg_spec_workflow
+from PCGSpec_Prediction import prediction_8_cluster
 
 # test msg updating 4th dec
 
@@ -90,6 +91,19 @@ with st.form(key='my_form2'):
     submit_button = st.form_submit_button(label='Predict!')
     try:
         pcg_spec_workflow(waveform_path)
+
+        # path = "./img-ui/spectrogram_sample.jpg" HAS THE IMAGE OF SPECTROGRAM - BEFORE CLUSTER
+        # path = "cluster_spec_img.jpg" HAS THE IMAGE OF 8 CLUSTERED K MEANS SPECTROGRAM 
+
+        pred_path = "cluster_spec_img.jpg"
+        val = prediction_8_cluster(pred_path)
+        # st.write("PREDICTION : "+str(val))
+        if(val == -1):
+            st.write("NORMAL")
+        elif(val == 1):
+            st.write("ABNORMAL")
+
+
     except ValueError:
         st.error('Please enter WAV File!')
 

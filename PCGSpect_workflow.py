@@ -19,11 +19,14 @@ def pcg_spec_workflow(waveform_path):
     spec_img=Image.open("./img-ui/spectrogram_sample.jpg")
     st.image(spec_img,caption='Generated Spectrogram')
 
+    get_clusters(img_path, 4)
+    clus_spec_4 = Image.open("cluster_spec_img.jpg")
+    st.image(clus_spec_4, caption='4 Clusters of Spectrogram Generated')
 
-    get_clusters(img_path)
+
+    get_clusters(img_path, 8)
     clus_spec_8 = Image.open("cluster_spec_img.jpg")
     st.image(clus_spec_8, caption='8 Clusters of Spectrogram Generated')
-
 
 
 
@@ -49,8 +52,8 @@ def create_linearF_spec(AUDIOFILE):
     return v
     
 
-def get_clusters(FILE_NAME):
-    N = 8 # @ TEAM : Specify the number of clusters needed hereee 
+def get_clusters(FILE_NAME, N):
+    #N =  @ TEAM : Specify the number of clusters needed hereee 
 
     img = imread(FILE_NAME)/255
     #print("img size: ", img.shape)
