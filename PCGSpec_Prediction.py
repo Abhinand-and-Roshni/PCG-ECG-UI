@@ -8,8 +8,8 @@ import cv2
 def prediction_8_cluster(path, waveform_path):
 
         print("entered pcgspec_prediction file")
-        model=load_model('model.h5')
-        model.compile(loss= keras.losses.categorical_crossentropy, optimizer='adam', metrics=['accuracy'])
+        model=load_model('DENSENET.h5')
+        model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
         img=cv2.imread(path)
         img=cv2.resize(img,(64,64))
         img=np.reshape(img,[1,64,64,3])
@@ -19,7 +19,7 @@ def prediction_8_cluster(path, waveform_path):
         print("PREDICTION FOR DL:",prediction)
 
         st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
-        if(prediction == [0]):
+        if(prediction == [1]):
             st.text("SUBJECT PCG NORMAL")
         else:
             st.text("SUBJECT PCG ABNORMAL")
