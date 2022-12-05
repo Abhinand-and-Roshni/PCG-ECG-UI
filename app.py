@@ -75,7 +75,6 @@ with st.form(key='my_form'):
 
 st.title("PCG Classification - Spectrogram Clustering")
 with st.form(key='my_form2'):
-    #   waveform_path = st.file_uploader("Upload ECG file", type=["mat"])
     waveform_path = None
     try:
         waveform_path = file_selector()
