@@ -21,10 +21,12 @@ def pcg_workflow(waveform_path):
     image = Image.open(
         './spectrograms/Spectrogram.png')
     st.image(image, caption='Mel Spectrogram')
-
-    regOfInterest.getRegions(waveform_path)
-    image1=Image.open('./RegionsofInterest.png')
-    st.image(image1,caption='Regions of Interest')
+    try:
+        regOfInterest.getRegions(waveform_path)
+        image1=Image.open('./RegionsofInterest.png')
+        st.image(image1,caption='Regions of Interest')
+    except ValueError:
+        st.warning('Regions of Interest not Detected in this File.')
     
     imageFeaturesExtracted = imagefeatures.getImageFeatures()
     st.write('Image features - ')

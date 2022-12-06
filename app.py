@@ -15,6 +15,7 @@ from ECGworkflow import ecg_workflow
 from PCGworkflow import pcg_workflow
 from PCGSpect_workflow import pcg_spec_workflow
 from PCGSpec_Prediction import prediction_8_cluster
+import os
 
 # test msg updating 4th dec
 
@@ -29,6 +30,7 @@ waveform_path = file_selector()
 
 # Import local Libraries
 sys.path.insert(0, os.path.dirname(os.getcwd()))
+
 
 st.title("PCG Classification - Spectrogram Clustering")
 with st.form(key='my_form2'):
@@ -86,7 +88,19 @@ with st.form(key='my_form1'):
     
 
 
+
+
 st.title("ECG CLASSIFICATION - BEST MODEL")
+print("35:",waveform_path.split(".")[2])
+if(waveform_path.split(".")[2]== 'wav'):
+    waveform_path1 = waveform_path.replace('wav', 'mat')
+    print("**38:",waveform_path1)
+    if(os.path.exists(waveform_path1) == True):
+        waveform_path = waveform_path1
+        print("96: ",waveform_path)
+    else:
+        st.error('No corresponding MAT file found for this WAV file!')
+print("99: ", waveform_path)
 with st.form(key='my_form'):
     #   waveform_path = st.file_uploader("Upload ECG file", type=["mat"])
     #waveform_path = None
