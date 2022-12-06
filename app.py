@@ -77,7 +77,10 @@ with st.form(key='my_form1'):
     submit_button = st.form_submit_button(label='Predict!')
 
     if(waveform_path.split('.')[2] not in ' mat'): # or waveform_path.split('.')[2] != ' MAT'):
+        try:
             pcg_workflow(waveform_path)
+        except EOFError:
+            st.error("Enter WAV File!")
     # except EOFError:
     #     st.error('Please enter WAV file!')
     

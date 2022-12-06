@@ -69,7 +69,7 @@ def ecg_workflow(waveform_path):
     pickled_model = pkl.load(open("RFC_Boosting_ECG17.pkl", "rb"))
     prediction = pickled_model.predict(fin_df)
     st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
-    if(prediction == 1):
+    if(prediction == -1):
         st.text("SUBJECT ECG NORMAL")
     else:
         st.text("SUBJECT ECG ABNORMAL")
