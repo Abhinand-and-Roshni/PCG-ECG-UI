@@ -69,9 +69,9 @@ def ecg_workflow(waveform_path):
     pickled_model = pkl.load(open("RFC_Boosting_ECG17.pkl", "rb"))
     prediction = pickled_model.predict(fin_df)
     st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
-    if(prediction == -1):
+    if(prediction == 1):
         st.text("SUBJECT ECG NORMAL")
-    else:
+    elif(prediction == -1):
         st.text("SUBJECT ECG ABNORMAL")
     st.text("-- ACTUAL RESULT FOR FILE " + waveform_path + " -- ")
     df_actual = pd.read_csv("2016_17_ALL_ECG_SUBJECTS_WITH_LABEL.csv")
@@ -86,11 +86,11 @@ def ecg_workflow(waveform_path):
     #print(df_actual['file_name']+str("IS THE PATIENT!"))
     m = z['label']
     m = np.array(m)
-    print("*****87:", m)
-    if(m == [-1]):
+    #print("*****87:", m)
+    if(m == [1]):
         print("patient normal")
         st.text("SUBJECT ECG NORMAL")
-    elif(m == [1]):
+    elif(m == [-1]):
         print("patient abnormal")
         st.text("SUBJECT ECG ABNORMAL")
     else:
