@@ -31,7 +31,10 @@ waveform_path = file_selector()
 # Import local Libraries
 sys.path.insert(0, os.path.dirname(os.getcwd()))
 
+st.title("PHASE II")
 
+
+st.title ("PHASE I (July 2022 - December 2022)")
 st.title("PCG Classification - Spectrogram Clustering")
 with st.form(key='my_form2'):
     #waveform_path = None
