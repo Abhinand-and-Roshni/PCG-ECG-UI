@@ -78,10 +78,19 @@ with tab2:
             model.load_weights("./model_folder/autoencoder_weights.h5")
             x = model.encoder(wave_tf)
             print(x)
-            xx = pd.DataFrame(x.numpy())
+            xx1 = pd.DataFrame(x.numpy())
 
             st.write("Newly Constructed Features using Encoder:")
-            st.dataframe(xx)
+            st.dataframe(xx1)
+
+            with open("./model_folder/nb_weights.pkl", "rb") as f:
+                weights1 = pkl.load(f)
+            
+            xx = xx1 * weights1 * weights1
+            print("line 91: ")
+            print(xx)
+            print("line 92: ")
+            print(xx1)
 
             with open( "./model_folder/LR_Bayes_16.pkl", "rb" ) as f:
                 LRB = pkl.load(f)
