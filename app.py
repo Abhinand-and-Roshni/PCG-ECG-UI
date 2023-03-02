@@ -5,13 +5,10 @@ from scipy.io.matlab.miobase import (MatFileReader, docfiller, matdims, read_dty
 from features import feature_extractor
 from features import imagefeatures
 import keras
-from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 import matplotlib.pyplot as plt
-from tensorflow.keras import layers, losses
 from keras import Sequential, optimizers
 from keras.layers import Input, Dense, Dropout, LSTM, RepeatVector, TimeDistributed, BatchNormalization
-from tensorflow.keras import regularizers
 from sklearn.decomposition import PCA
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -21,7 +18,6 @@ import torch
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.models import Model
 from keras.models import load_model
 import pandas as pd
 import re
