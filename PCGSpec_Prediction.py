@@ -12,7 +12,7 @@ import cv2
 def prediction_8_cluster(path, waveform_path):
 
         print("entered pcgspec_prediction file")
-        model=load_model('DENSENET.h5')
+        model=load_model('./model_folder/DENSENET.h5')
         #optimizer = Adam(learning_rate=0.0002, beta_1=0.9, beta_2=0.9997, epsilon=0.0001, decay=0.0)
         # optimizer = 'adam'
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])

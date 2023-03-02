@@ -46,9 +46,20 @@ tab1, tab2 = st.tabs(["Phase I", "Phase II"])
 with tab2:
     try:
         st.title("ECG Classification using Autoencoders and LR-Bayes Method")
+        print("35:",waveform_path.split(".")[2])
+        if(waveform_path.split(".")[2]== 'wav'):
+            waveform_path1 = waveform_path.replace('wav', 'mat')
+            print("**38:",waveform_path1)
+            if(os.path.exists(waveform_path1) == True):
+                #waveform_path = waveform_path1
+                print("96: ",waveform_path)
+            else:
+                st.error('No corresponding MAT file found for this WAV file!')
+        else:
+            waveform_path1 = waveform_path
         with st.form(key='my_form_p2_r1'):
             #st.header("PHASE II")
-            st.write('You selected `%s`' % waveform_path)
+            st.write('You selected `%s`' % waveform_path1)
             st.success('File successfully loaded!', icon="✅")
             submit_button = st.form_submit_button(label='Predict!')
             def read_mat_files(file_path):
@@ -61,7 +72,7 @@ with tab2:
                 df_list.append(data)
                 df = pd.DataFrame(df_list)
                 return df
-            df_list = read_mat_files(waveform_path)
+            df_list = read_mat_files(waveform_path1)
             df_list = df_list.drop(0, axis = 1)
 
             st.write("Reading the ECG File:")
