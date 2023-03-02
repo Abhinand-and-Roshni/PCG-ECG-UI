@@ -61,12 +61,12 @@ def ecg_workflow(waveform_path):
     st.dataframe(df11)
     df11_list = df11.values
 
-    pca_1 = pkl.load(open("pca16_ecg_2017.pkl", 'rb'))
+    pca_1 = pkl.load(open("./model_folder/pca16_ecg_2017.pkl", 'rb'))
     df111 = pca_1.transform(df11)
 
     fin_df = np.concatenate((df11, df111), 1)
 
-    pickled_model = pkl.load(open("RFC_Boosting_ECG17.pkl", "rb"))
+    pickled_model = pkl.load(open("./model_folder/RFC_Boosting_ECG17.pkl", "rb"))
     prediction = pickled_model.predict(fin_df)
     st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
     if(prediction == 1):

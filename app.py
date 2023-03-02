@@ -4,15 +4,25 @@ from scipy.io.matlab.miobase import (MatFileReader, docfiller, matdims, read_dty
                                      MatReadError, MatReadWarning)
 from features import feature_extractor
 from features import imagefeatures
-
+import keras
+from tensorflow.keras.optimizers import Adam
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from tensorflow.keras import layers, losses
+from keras import Sequential, optimizers
+from keras.layers import Input, Dense, Dropout, LSTM, RepeatVector, TimeDistributed, BatchNormalization
+from tensorflow.keras import regularizers
+from sklearn.decomposition import PCA
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
 from auto_encoder import encoderdecoder
 import streamlit as st
 import torch
 import tensorflow as tf
 import matplotlib.pyplot as plt
-from tensorflow.keras import layers, losses
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Model
+from keras.models import load_model
 import pandas as pd
 import re
 from scipy.io import loadmat
@@ -27,8 +37,8 @@ from PCGworkflow import pcg_workflow
 from PCGSpect_workflow import pcg_spec_workflow
 from PCGSpec_Prediction import prediction_8_cluster
 import os
-
-# test msg updating 4th dec
+from rev2ECGWorkflow import r2workflow_lstmae
+from rev1ECGWorkflow import r1ecg_lr_vanillaAE
 
 def file_selector(folder_path='./TestData/'):
     filenames = os.listdir(folder_path)
@@ -42,88 +52,52 @@ waveform_path = file_selector()
 # Import local Libraries
 sys.path.insert(0, os.path.dirname(os.getcwd()))
 tab1, tab2 = st.tabs(["Phase I", "Phase II"])
-#============= PHASE 2 wORFLOW =================================================================================================
+#============= PHASE 2 wORFLOW STARTS =================================================================================================
 with tab2:
     try:
-        st.title("ECG Classification using Autoencoders and LR-Bayes Method")
-        with st.form(key='my_form_p2_r1'):
+        
+#==================================== REVIEW 2 STARTS HERE================================================
+        st.title("ECG Classification using LSTM-AE with PCA")
+        print("35:",waveform_path.split(".")[2])
+        if(waveform_path.split(".")[2]== 'wav'):
+            waveform_path1 = waveform_path.replace('wav', 'mat')
+            print("**38:",waveform_path1)
+            if(os.path.exists(waveform_path1) == True):
+                #waveform_path = waveform_path1
+                print("96: ",waveform_path)
+            else:
+                st.error('No corresponding MAT file found for this WAV file!')
+        else:
+            waveform_path1 = waveform_path
+        with st.form(key='my_form_p2_r2'):
             #st.header("PHASE II")
-            st.write('You selected `%s`' % waveform_path)
+            st.write('You selected `%s`' % waveform_path1)
             st.success('File successfully loaded!', icon="✅")
             submit_button = st.form_submit_button(label='Predict!')
-            def read_mat_files(file_path):
-                df_list = []
-                mat = loadmat(file_path)
-                print(mat['val'][0] , ' | file: ' , file_path)
-                x = file_path.split('.')[0]
-                data = mat['val'][0]
-                data = np.append(x, data)
-                df_list.append(data)
-                df = pd.DataFrame(df_list)
-                return df
-            df_list = read_mat_files(waveform_path)
-            df_list = df_list.drop(0, axis = 1)
+            r2workflow_lstmae(waveform_path1)
 
-            st.write("Reading the ECG File:")
-            st.dataframe(df_list)
-            df_list = df_list.astype(float)
-            wave_tf = tf.convert_to_tensor(df_list)
-            wave_tf = tf.cast(wave_tf, dtype=tf.float32)
 
-            # Recreate the model
-            model = encoderdecoder.detector()
 
-            model.compile(optimizer='adam', loss='mae')
-            model.build(input_shape=(None, 3600))
-            model.load_weights("./model_folder/autoencoder_weights.h5")
-            x = model.encoder(wave_tf)
-            print(x)
-            xx = pd.DataFrame(x.numpy())
 
-            st.write("Newly Constructed Features using Encoder:")
-            st.dataframe(xx)
-
-            with open( "./model_folder/LR_Bayes_16.pkl", "rb" ) as f:
-                LRB = pkl.load(f)
-            y = LRB.predict(xx)
-            st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
-            print(y)
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-            if(y==-1):
-                st.write("SUBJECT ECG ABNORMAL")
-            elif(y==1):
-                st.write("SUBJECT ECG NORMAL")
-
-            st.text("-- ACTUAL RESULT FOR FILE " + waveform_path + " -- ")
-            df_actual = pd.read_csv("2016_17_ALL_ECG_SUBJECTS_WITH_LABEL.csv")
-            x = waveform_path
-            print("TESTTTTTTTTT"+waveform_path)
-            # MODIFY [5] BASED ON THE FUNCTION FILE_SELECTOR'S FOLDER PATH !!
-            x = x.split(".")[1].split(".")[0].split("/")[-1]
-            print("X IS ")
-            print(x)
-            x = str(x)
-            z = df_actual[df_actual['file_name'].str.contains(x)]
-            #print(df_actual['file_name']+str("IS THE PATIENT!"))
-            m = z['label']
-            m = np.array(m)
-            #print("*****87:", m)
-            if(m == [1]):
-                print("patient normal")
-                st.text("SUBJECT ECG NORMAL")
-            elif(m == [-1]):
-                print("patient abnormal")
-                st.text("SUBJECT ECG ABNORMAL")
+        #*****************REVIEW 1*****************************************************************
+        st.title("ECG Classification using Autoencoders and LR-Bayes Method")
+        print("35:",waveform_path.split(".")[2])
+        if(waveform_path.split(".")[2]== 'wav'):
+            waveform_path1 = waveform_path.replace('wav', 'mat')
+            print("**38:",waveform_path1)
+            if(os.path.exists(waveform_path1) == True):
+                #waveform_path = waveform_path1
+                print("96: ",waveform_path)
             else:
-                # ground truth not provided
-                st.text("Ground Truth Inconclusive Result (~)")
-            
-        
-
-
-
-
-
+                st.error('No corresponding MAT file found for this WAV file!')
+        else:
+            waveform_path1 = waveform_path
+        with st.form(key='my_form_p2_r1'):
+            #st.header("PHASE II")
+            st.write('You selected `%s`' % waveform_path1)
+            st.success('File successfully loaded!', icon="✅")
+            submit_button = st.form_submit_button(label='Predict!')
+            r1ecg_lr_vanillaAE(waveform_path1)
 
 
     except MatReadError:
@@ -131,14 +105,6 @@ with tab2:
 
 
     
-
-
-
-
-
-
-
-
 
 
 

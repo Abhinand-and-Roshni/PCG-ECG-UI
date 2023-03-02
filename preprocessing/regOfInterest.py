@@ -40,5 +40,5 @@ def getRegions(waveform_path):
     ax0, fig0 = overlay_centroid(Sxx_db, df_centroid, savefig=None,
                              **{'vmin':0,'vmax':dB_max,'extent':ext,'ms':4,
                                 'marker':'+', 'fig':fig0, 'ax':ax0})    
-    fig0.savefig('./RegionsofInterest.png')
+    fig0.savefig('./img_ui/RegionsofInterest.png')
 
