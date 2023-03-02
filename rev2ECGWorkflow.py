@@ -37,6 +37,7 @@ from PCGworkflow import pcg_workflow
 from PCGSpect_workflow import pcg_spec_workflow
 from PCGSpec_Prediction import prediction_8_cluster
 import os 
+from utils.plotting import plot_ecg
 
 
 
@@ -62,6 +63,8 @@ def r2workflow_lstmae(waveform_path):
     ## DISPLAYING THE READ FILE (TRIMMED)
     st.write("Reading the ECG File:")
     st.dataframe(df_list)
+    # img1 = plot_ecg.img(waveform_path)
+    # st.image(img1)
     def reshape_data(X_train):
         X_train = X_train.reshape(X_train.shape[0], 1,  X_train.shape[1])
         return X_train
