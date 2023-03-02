@@ -70,7 +70,7 @@ def r2workflow_lstmae(waveform_path):
     print("106: ", dd.shape)
     print(dd)
     print(type(dd))
-    model = load_model('./model_folder/LSTM-AE-2016-2500-86-92.h5')
+    model = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
     optimizer = Adam(learning_rate=0.001)
     loss = 'mse'
     encoder_model = Model(inputs=model.inputs, outputs=model.get_layer(index=5).output)

@@ -63,7 +63,7 @@ def r1ecg_lr_vanillaAE(waveform_path1):
 
     model.compile(optimizer='adam', loss='mae')
     model.build(input_shape=(None, 3600))
-    model.load_weights("./model_folder/autoencoder_weights.h5")
+    model.load_weights("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/autoencoder_weights.h5")
     x = model.encoder(wave_tf)
     print(x)
     xx1 = pd.DataFrame(x.numpy())
