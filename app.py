@@ -55,13 +55,9 @@ tab1, tab2 = st.tabs(["Phase I", "Phase II"])
 #============= PHASE 2 wORFLOW STARTS =================================================================================================
 with tab2:
     try:
-<<<<<<< HEAD
         
 #==================================== REVIEW 2 STARTS HERE================================================
         st.title("ECG Classification using LSTM-AE with PCA")
-=======
-        st.title("ECG Classification using Autoencoders and LR-Bayes Method")
->>>>>>> 4c7361047f227abbada1904aef6c0e5c0a9a6833
         print("35:",waveform_path.split(".")[2])
         if(waveform_path.split(".")[2]== 'wav'):
             waveform_path1 = waveform_path.replace('wav', 'mat')
@@ -73,35 +69,15 @@ with tab2:
                 st.error('No corresponding MAT file found for this WAV file!')
         else:
             waveform_path1 = waveform_path
-<<<<<<< HEAD
         with st.form(key='my_form_p2_r2'):
-=======
-        with st.form(key='my_form_p2_r1'):
->>>>>>> 4c7361047f227abbada1904aef6c0e5c0a9a6833
             #st.header("PHASE II")
             st.write('You selected `%s`' % waveform_path1)
             st.success('File successfully loaded!', icon="✅")
             submit_button = st.form_submit_button(label='Predict!')
-<<<<<<< HEAD
             r2workflow_lstmae(waveform_path1)
-=======
-            def read_mat_files(file_path):
-                df_list = []
-                mat = loadmat(file_path)
-                print(mat['val'][0] , ' | file: ' , file_path)
-                x = file_path.split('.')[0]
-                data = mat['val'][0]
-                data = np.append(x, data)
-                df_list.append(data)
-                df = pd.DataFrame(df_list)
-                return df
-            df_list = read_mat_files(waveform_path1)
-            df_list = df_list.drop(0, axis = 1)
->>>>>>> 4c7361047f227abbada1904aef6c0e5c0a9a6833
 
 
 
-<<<<<<< HEAD
 
         #*****************REVIEW 1*****************************************************************
         st.title("ECG Classification using Autoencoders and LR-Bayes Method")
@@ -112,58 +88,6 @@ with tab2:
             if(os.path.exists(waveform_path1) == True):
                 #waveform_path = waveform_path1
                 print("96: ",waveform_path)
-=======
-            model.compile(optimizer='adam', loss='mae')
-            model.build(input_shape=(None, 3600))
-            model.load_weights("./model_folder/autoencoder_weights.h5")
-            x = model.encoder(wave_tf)
-            print(x)
-            xx1 = pd.DataFrame(x.numpy())
-
-            st.write("Newly Constructed Features using Encoder:")
-            st.dataframe(xx1)
-
-            with open("./model_folder/nb_weights.pkl", "rb") as f:
-                weights1 = pkl.load(f)
-            
-            xx = xx1 * weights1 * weights1
-            print("line 91: ")
-            print(xx)
-            print("line 92: ")
-            print(xx1)
-
-            with open( "./model_folder/LR_Bayes_16.pkl", "rb" ) as f:
-                LRB = pkl.load(f)
-            y = LRB.predict(xx)
-            st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
-            print(y)
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-            if(y==-1):
-                st.write("SUBJECT ECG ABNORMAL")
-            elif(y==1):
-                st.write("SUBJECT ECG NORMAL")
-
-            st.text("-- ACTUAL RESULT FOR FILE " + waveform_path + " -- ")
-            df_actual = pd.read_csv("2016_17_ALL_ECG_SUBJECTS_WITH_LABEL.csv")
-            x = waveform_path
-            print("TESTTTTTTTTT"+waveform_path)
-            # MODIFY [5] BASED ON THE FUNCTION FILE_SELECTOR'S FOLDER PATH !!
-            x = x.split(".")[1].split(".")[0].split("/")[-1]
-            print("X IS ")
-            print(x)
-            x = str(x)
-            z = df_actual[df_actual['file_name'].str.contains(x)]
-            #print(df_actual['file_name']+str("IS THE PATIENT!"))
-            m = z['label']
-            m = np.array(m)
-            #print("*****87:", m)
-            if(m == [1]):
-                print("patient normal")
-                st.text("SUBJECT ECG NORMAL")
-            elif(m == [-1]):
-                print("patient abnormal")
-                st.text("SUBJECT ECG ABNORMAL")
->>>>>>> 4c7361047f227abbada1904aef6c0e5c0a9a6833
             else:
                 st.error('No corresponding MAT file found for this WAV file!')
         else:
