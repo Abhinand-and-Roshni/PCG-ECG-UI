@@ -77,8 +77,6 @@ def r2workflow_lstmae(waveform_path):
     optimizer = Adam(learning_rate=0.001)
     loss = 'mse'
     encoder_model = Model(inputs=model.inputs, outputs=model.get_layer(index=5).output)
-    optimizer = Adam(learning_rate=0.001)
-    loss = 'mse'
     encoder_model.compile(optimizer=optimizer, loss=loss)
 
     latent_representation = encoder_model.predict(dd)
