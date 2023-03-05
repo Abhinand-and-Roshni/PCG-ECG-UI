@@ -50,7 +50,9 @@ def read_mat_files(file_path):
 
 def r1ecg_lr_vanillaAE(waveform_path1):
     df_list = read_mat_files(waveform_path1)
+    
     df_list = df_list.drop(0, axis = 1)
+    df_list = df_list.iloc[:, :3600] # SPECIFIC FOR THIS MODEL BC TRAINED FOR 3600 POINTS (COMMON)
 
     st.write("Reading the ECG File:")
     st.dataframe(df_list)
