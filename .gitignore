@@ -1,2 +1,3 @@
 /model_folder/*.h5
 /model_folder/LSTM-AE-2016-2500-86-92.h5
+auto_encoder\VanAE_2016_R1\
