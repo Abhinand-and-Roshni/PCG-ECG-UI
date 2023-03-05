@@ -2,9 +2,9 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from tensorflow.keras import layers, losses
+from keras import layers, losses
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.models import Model
+from keras.models import Model
 
 class detector(Model):
     def __init__(self):

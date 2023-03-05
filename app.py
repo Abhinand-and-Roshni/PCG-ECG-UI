@@ -18,7 +18,7 @@ import torch
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from keras.models import load_model
+#from keras.models import load_model
 import pandas as pd
 import re
 from scipy.io import loadmat
@@ -33,8 +33,9 @@ from PCGworkflow import pcg_workflow
 from PCGSpect_workflow import pcg_spec_workflow
 from PCGSpec_Prediction import prediction_8_cluster
 import os
-from rev2ECGWorkflow import r2workflow_lstmae
 from rev1ECGWorkflow import r1ecg_lr_vanillaAE
+from rev2ECGWorkflow import r2workflow_lstmae, r2workflow_lstmvanillahybrid
+
 
 def file_selector(folder_path='./TestData/'):
     filenames = os.listdir(folder_path)
@@ -51,10 +52,13 @@ tab1, tab2 = st.tabs(["Phase I", "Phase II"])
 #============= PHASE 2 wORFLOW STARTS =================================================================================================
 with tab2:
     try:
+        st.markdown("""---""")
+        st.title("REVIEW II:")
+        st.markdown("""---""")
         
 #==================================== REVIEW 2 STARTS HERE================================================
-        st.title("ECG Classification using LSTM-AE with PCA")
-        st.subheader("Review 2")
+        st.subheader("ECG Classification using LSTM-AE with PCA")
+        #st.subheader("Review 2")
         print("35:",waveform_path.split(".")[2])
         if(waveform_path.split(".")[2]== 'wav'):
             waveform_path1 = waveform_path.replace('wav', 'mat')
@@ -66,32 +70,33 @@ with tab2:
                 st.error('No corresponding MAT file found for this WAV file!')
         else:
             waveform_path1 = waveform_path
-        with st.form(key='my_form_p2_r2'):
+        with st.form(key='my_form_p2_r2_1'):
             #st.header("PHASE II")
             st.write('You selected `%s`' % waveform_path1)
             st.success('File successfully loaded!', icon="✅")
             submit_button = st.form_submit_button(label='Predict!')
             r2workflow_lstmae(waveform_path1)
+        
 
-
-
-
-# < TO INSERT BEST HYBRID LATENT REP MODEL > 
-
-
-
-
-
+        st.subheader("ECG Classification using VanillaAE-LSTMAE Hybrid Latent Representation")
+        #st.subheader("Review 2")
+        with st.form(key='my_form_p2_r2_2'):
+            st.write('You selected `%s`' % waveform_path1)
+            st.success('File successfully loaded!', icon="✅")
+            submit_button = st.form_submit_button(label='Predict!')
+            r2workflow_lstmvanillahybrid(waveform_path1)
 
 
 # < TO INSERt BEST HYBRID ENCODER DECODER MODEL > 
 
 
-
+        st.markdown("""---""")
+        st.title("REVIEW I:")
+        st.markdown("""---""")
 
         #*****************REVIEW 1*****************************************************************
         st.title("ECG Classification using Autoencoders and LR-Bayes Method")
-        st.subheader("Review 1")
+        #st.subheader("Review 1")
         print("35:",waveform_path.split(".")[2])
         if(waveform_path.split(".")[2]== 'wav'):
             waveform_path1 = waveform_path.replace('wav', 'mat')
