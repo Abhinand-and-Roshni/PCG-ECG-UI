@@ -73,7 +73,14 @@ def r2workflow_lstmae(waveform_path):
     print("106: ", dd.shape)
     print(dd)
     print(type(dd))
-    model = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
+    
+    # DONT REMOVE ! abhinand path
+    #model = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
+
+    # DONT REMOVE ! roshni path
+    model = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
+
+
     optimizer = Adam(learning_rate=0.001)
     loss = 'mse'
     encoder_model = Model(inputs=model.inputs, outputs=model.get_layer(index=5).output)
@@ -141,7 +148,10 @@ def r2workflow_lstmvanillahybrid(waveform_path):
 
     #ENCODER MODELS FOR THE HYBRID REPRESENTATION
 
-    model1 = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
+    #model1 = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
+
+# DONT REMOVE = ROSHNI PATH
+    model1 = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
     optimizer = Adam(learning_rate=0.001)
     loss = 'mse'
     encoder_model = Model(inputs=model1.inputs, outputs=model1.get_layer(index=5).output)
@@ -150,7 +160,14 @@ def r2workflow_lstmvanillahybrid(waveform_path):
     print("123: LR", latent_representation)
     try:
         print("Trying Vanilla Encoding")
-        model2 = load_model("/users/abhinandganesh/Downloads/vanilla_autoencoder")
+
+        # dont delete = abhi path
+        # model2 = load_model("/users/abhinandganesh/Downloads/vanilla_autoencoder")
+
+        # dont delete = roshni path
+        model2 = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/vanilla_autoencoder")
+
+
         print("Loaded the encoder")
         # optimizer = Adam(learning_rate=0.001)
         # loss = 'mae'
