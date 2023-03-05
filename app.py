@@ -73,16 +73,17 @@ with tab2:
         with st.form(key='my_form_p2_r2_1'):
             #st.header("PHASE II")
             st.write('You selected `%s`' % waveform_path1)
-            st.success('File successfully loaded!', icon="✅")
-            submit_button = st.form_submit_button(label='Predict!')
+            st.success('File successfully loaded!')
+            st.form_submit_button(label='Predict!')
             r2workflow_lstmae(waveform_path1)
+            
         
 
         st.subheader("ECG Classification using VanillaAE-LSTMAE Hybrid Latent Representation")
         #st.subheader("Review 2")
         with st.form(key='my_form_p2_r2_2'):
             st.write('You selected `%s`' % waveform_path1)
-            st.success('File successfully loaded!', icon="✅")
+            st.success('File successfully loaded!')
             submit_button = st.form_submit_button(label='Predict!')
             r2workflow_lstmvanillahybrid(waveform_path1)
 
@@ -111,7 +112,7 @@ with tab2:
         with st.form(key='my_form_p2_r1'):
             #st.header("PHASE II")
             st.write('You selected `%s`' % waveform_path1)
-            st.success('File successfully loaded!', icon="✅")
+            st.success('File successfully loaded!')
             submit_button = st.form_submit_button(label='Predict!')
             r1ecg_lr_vanillaAE(waveform_path1)
 
@@ -135,7 +136,7 @@ with tab1:
             #waveform_path = file_selector()
             if(len(waveform_path) != 0):
                 st.write('You selected `%s`' % waveform_path)
-                st.success('File successfully loaded!', icon="✅")
+                st.success('File successfully loaded!')
             else:
                 raise TypeError
             
@@ -204,7 +205,7 @@ with tab1:
             #waveform_path = file_selector()
             if(len(waveform_path) != 0):
                 st.write('You selected `%s`' % waveform_path)
-                st.success('File successfully loaded!', icon="✅")
+                st.success('File successfully loaded!')
             else:
                 raise TypeError
                 #raise MatReadError("Mat file appears to be empty")

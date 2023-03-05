@@ -73,7 +73,7 @@ def r2workflow_lstmae(waveform_path):
     print("106: ", dd.shape)
     print(dd)
     print(type(dd))
-    model = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
+    model = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
     optimizer = Adam(learning_rate=0.001)
     loss = 'mse'
     encoder_model = Model(inputs=model.inputs, outputs=model.get_layer(index=5).output)
@@ -141,7 +141,7 @@ def r2workflow_lstmvanillahybrid(waveform_path):
 
     #ENCODER MODELS FOR THE HYBRID REPRESENTATION
 
-    model1 = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
+    model1 = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
     optimizer = Adam(learning_rate=0.001)
     loss = 'mse'
     encoder_model = Model(inputs=model1.inputs, outputs=model1.get_layer(index=5).output)
@@ -149,13 +149,19 @@ def r2workflow_lstmvanillahybrid(waveform_path):
     latent_representation = encoder_model.predict(dd)
     print("123: LR", latent_representation)
     try:
-        model2 = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/vanilla_autoencoder")
+        print("Trying Vanilla Encoding")
+        model2 = load_model("/users/abhinandganesh/Downloads/vanilla_autoencoder")
+        print("Loaded the encoder")
         # optimizer = Adam(learning_rate=0.001)
         # loss = 'mae'
         # encoder_model = Model(inputs=model2.inputs, outputs=model2.get_layer(index=5).output)
         # #encoder_model.compile(optimizer=optimizer,loss=loss)
-        latent_representation_of_vanilla=encoder_model.predict(dd)
+        dd = dd.reshape(1,2500)
+        latent_representation_of_vanilla=model2.encoder(dd)
+        print("Encoding complete!")
+        latent_representation_of_vanilla=latent_representation_of_vanilla.numpy()
         print("Vanilla latent representation: ",latent_representation_of_vanilla)
+        
 
 
         #CONCATENATION OF THE LATENT REPRESENTATIONS
@@ -172,11 +178,17 @@ def r2workflow_lstmvanillahybrid(waveform_path):
     FINAL_X_SET = pd.concat([X, X_PCA], axis=1, join='inner')
     with open('./model_folder/VANILLA_LSTM_ADABOOST_CLASSIFIER.pkl', 'rb') as f:
         model = pkl.load(f)
+
+    FINAL_X_SET.columns = range(len(FINAL_X_SET.columns))
+
     res = model.predict(FINAL_X_SET)
     y = res
 
     st.write("Newly Constructed Features using Encoder:")
     st.dataframe(X)
+
+    st.write("PCA Features added to Encoded Features:")
+    st.dataframe(FINAL_X_SET)
 
     st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
     print(y)
