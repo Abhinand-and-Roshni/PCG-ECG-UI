@@ -54,6 +54,7 @@ with tab2:
         
 #==================================== REVIEW 2 STARTS HERE================================================
         st.title("ECG Classification using LSTM-AE with PCA")
+        st.subheader("Review 2")
         print("35:",waveform_path.split(".")[2])
         if(waveform_path.split(".")[2]== 'wav'):
             waveform_path1 = waveform_path.replace('wav', 'mat')
@@ -75,8 +76,22 @@ with tab2:
 
 
 
+# < TO INSERT BEST HYBRID LATENT REP MODEL > 
+
+
+
+
+
+
+
+# < TO INSERt BEST HYBRID ENCODER DECODER MODEL > 
+
+
+
+
         #*****************REVIEW 1*****************************************************************
         st.title("ECG Classification using Autoencoders and LR-Bayes Method")
+        st.subheader("Review 1")
         print("35:",waveform_path.split(".")[2])
         if(waveform_path.split(".")[2]== 'wav'):
             waveform_path1 = waveform_path.replace('wav', 'mat')
