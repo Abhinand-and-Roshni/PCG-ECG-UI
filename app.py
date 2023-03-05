@@ -53,7 +53,7 @@ tab1, tab2 = st.tabs(["Phase I", "Phase II"])
 with tab2:
     try:
         st.markdown("""---""")
-        st.title("REVIEW II:")
+        st.title("REVIEW II - BEST MODELS:")
         st.markdown("""---""")
         
 #==================================== REVIEW 2 STARTS HERE================================================
@@ -91,7 +91,7 @@ with tab2:
 
 
         st.markdown("""---""")
-        st.title("REVIEW I:")
+        st.title("REVIEW I - BEST MODELS:")
         st.markdown("""---""")
 
         #*****************REVIEW 1*****************************************************************
