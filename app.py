@@ -35,6 +35,27 @@ from PCGSpec_Prediction import prediction_8_cluster
 import os
 from rev1ECGWorkflow import r1ecg_lr_vanillaAE
 from rev2ECGWorkflow import r2workflow_lstmae, r2workflow_lstmvanillahybrid
+st.set_page_config(
+    page_title="My Streamlit App",
+    page_icon=":smiley:",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# # Define custom CSS for the blue and yellow theme
+css = """
+    body {
+        
+        font-family: times;
+    }
+    .stTitle{
+        font-family: times;
+    }
+    
+"""
+
+# # Inject the custom CSS into the app
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 
 def file_selector(folder_path='./TestData/'):
