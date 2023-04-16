@@ -35,6 +35,7 @@ from PCGSpec_Prediction import prediction_8_cluster
 import os
 from rev1ECGWorkflow import r1ecg_lr_vanillaAE
 from rev2ECGWorkflow import r2workflow_lstmae, r2workflow_lstmvanillahybrid
+from rev3ECGWorkflow import r3workflow_DTW_LSTMAE
 
 st.set_page_config(
     page_title="PCG & ECG",
@@ -71,10 +72,33 @@ tab1, tab2 = st.tabs(["Phase I", "Phase II"])
 with tab2:
     try:
         st.markdown("""---""")
+        st.title("REVIEW III - BEST MODEL:")
+        st.markdown("""---""")
+
+#==================================== REVIEW 3 STARTS HERE================================================   
+
+        st.subheader("ECG Classification with Dynamic Time Warping")
+
+        if(waveform_path.split(".")[2]=='wav'):
+            waveform_path2=waveform_path.replace('wav','mat')
+            if(os.path.exists(waveform_path2)==True):
+                print("84: ",waveform_path)
+            else:
+                st.error("No corresponing MAT file found for this WAV file!")
+        else:
+            waveform_path2=waveform_path
+        with st.form(key='my_form_p2_r3_1'):
+            st.write('You successfully selected %s' % waveform_path2)
+            st.success("File successfully loaded!") 
+            st.form_submit_button(label='Predict!')
+            r3workflow_DTW_LSTMAE(waveform_path2)
+
+                
+#=================================== REVIEW 2 STARTS HERE================================================
+        st.markdown("""---""")
         st.title("REVIEW II - BEST MODELS:")
         st.markdown("""---""")
-        
-#==================================== REVIEW 2 STARTS HERE================================================
+
         st.subheader("ECG Classification using LSTM-AE with PCA")
         #st.subheader("Review 2")
         print("35:",waveform_path.split(".")[2])

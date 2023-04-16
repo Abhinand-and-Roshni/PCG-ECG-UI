@@ -16,8 +16,22 @@ from tensorflow.keras import regularizers
 from sklearn.decomposition import PCA
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
 from auto_encoder import encoderdecoder
+from scipy.spatial.distance import euclidean
+from fastdtw import fastdtw
 import streamlit as st
+from scipy.stats import skew
+from scipy.stats import kurtosis
+from scipy.signal import correlate
+from skimage.feature import graycomatrix, graycoprops
+
+import numpy as np
+import pywt
+from skimage.feature import local_binary_pattern
+from sklearn.linear_model import LinearRegression
+
 import torch
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -40,7 +54,6 @@ import os
 from utils.plotting import plot_ecg
 
 
-
 ## READING THE MAT FILES
 def read_mat_files(file_path):
                 df_list = []
@@ -52,6 +65,8 @@ def read_mat_files(file_path):
                 df_list.append(data)
                 df = pd.DataFrame(df_list)
                 return df
+     
+
 
 def r2workflow_lstmae(waveform_path):
     df_list = read_mat_files(waveform_path)
@@ -75,10 +90,10 @@ def r2workflow_lstmae(waveform_path):
     print(type(dd))
     
     # DONT REMOVE ! abhinand path
-    #model = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
+    model = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
 
     # DONT REMOVE ! roshni path
-    model = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
+    #model = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
 
 
     optimizer = Adam(learning_rate=0.001)
@@ -148,10 +163,10 @@ def r2workflow_lstmvanillahybrid(waveform_path):
 
     #ENCODER MODELS FOR THE HYBRID REPRESENTATION
 
-    #model1 = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
+    model1 = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
 
 # DONT REMOVE = ROSHNI PATH
-    model1 = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
+    #model1 = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/LSTM-AE-2016-2500-86-92.h5")
     optimizer = Adam(learning_rate=0.001)
     loss = 'mse'
     encoder_model = Model(inputs=model1.inputs, outputs=model1.get_layer(index=5).output)
@@ -162,10 +177,10 @@ def r2workflow_lstmvanillahybrid(waveform_path):
         print("Trying Vanilla Encoding")
 
         # dont delete = abhi path
-        # model2 = load_model("/users/abhinandganesh/Downloads/vanilla_autoencoder")
+        model2 = load_model("/users/abhinandganesh/Downloads/vanilla_autoencoder")
 
         # dont delete = roshni path
-        model2 = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/vanilla_autoencoder")
+        #model2 = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/vanilla_autoencoder")
 
 
         print("Loaded the encoder")
