@@ -144,7 +144,8 @@ def read_mat_files(file_path):
                 return df
 
 def r3workflow_DTW_LSTMAE(waveform_path):
-     df=pd.read_csv("/users/abhinandganesh/Downloads/ECG2016_data.csv")
+     df = pd.read_csv("./data/labels/ECG2016_data.csv")
+     # df=pd.read_csv("/users/abhinandganesh/Downloads/ECG2016_data.csv")
      df=df.iloc[:,0:]
      df=df.iloc[:,0:2502]
      df=df.iloc[1:,:]
@@ -199,8 +200,11 @@ def r3workflow_DTW_LSTMAE(waveform_path):
      scaler = StandardScaler()
 
      #DONT REMOVE- ABHINAND'S PATH
-     X_train_features=pd.read_csv('/users/abhinandganesh/Downloads/DTW_TRAIN_FEATURES.csv')
-     X_train_features=X_train_features.iloc[:,1:]
+     #X_train_features=pd.read_csv('/users/abhinandganesh/Downloads/DTW_TRAIN_FEATURES.csv')
+
+     # DONT REMOVE - ROSHNI PATH
+     X_train_features = pd.read_csv("./data/features/DTW_TRAIN_FEATURES.csv")
+     # X_train_features=X_train_features.iloc[:,1:]
      X_train_features=scaler.fit_transform(X_train_features)
 
      #ADD HERE - ROSHNI'S PATH
@@ -213,4 +217,74 @@ def r3workflow_DTW_LSTMAE(waveform_path):
      X_test_ecg_features=test_ecg_features
      st.write("Feature Matrix: ")
      st.dataframe(X_test_ecg_features)
+     df_list = X_test_ecg_features
+
+     def reshape_data(X_train):
+        X_train = X_train.reshape(X_train.shape[0], 1,  X_train.shape[1])
+        return X_train
+     df_list = df_list.astype(float)
+     # dd = df_list
+     dd = reshape_data(df_list)
+     print("106: ", dd.shape)
+     print(dd)
+     print(type(dd))
+     # DONT REMOVE ! abhinand path
+    # model = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
+
+    # DONT REMOVE ! roshni path
+     model = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/DTW-LSTM-BESTMODEL.h5")
+
+
+     optimizer = Adam(learning_rate=0.001)
+     loss = 'mse'
+     encoder_model = Model(inputs=model.inputs, outputs=model.get_layer(index=5).output)
+     encoder_model.compile(optimizer=optimizer, loss=loss)
+
+     latent_representation = encoder_model.predict(dd)
+     print("123: LR", latent_representation)
+     # pca_reload = pkl.load(open("./model_folder/clf-r3-dtw-lstm.pkl",'rb'))
+     # result_new = pca_reload.transform(latent_representation) 
+     # X_PCA=pd.DataFrame(result_new)
+     # X = pd.DataFrame(latent_representation)
+     # FINAL_X_SET = pd.concat([X, X_PCA], axis=1, join='inner')
+     X = latent_representation
+     with open('./model_folder/clf-r3-dtw-lstm.pkl', 'rb') as f:
+        model = pkl.load(f)
+     res = model.predict(X)
+     y = res
+
+     st.write("Newly Constructed Features using Encoder:")
+     st.dataframe(X)
+
+     st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
+     print(y)
+     if(y==0):
+        st.write("SUBJECT ECG ABNORMAL")
+     elif(y==1):
+        st.write("SUBJECT ECG NORMAL")
+
+     st.text("-- ACTUAL RESULT FOR FILE " + waveform_path + " -- ")
+
+     # GETTING THE ACTUAL PREDICTIONS
+     df_actual = pd.read_csv("2016_17_ALL_ECG_SUBJECTS_WITH_LABEL.csv")
+     x = waveform_path
+     # MODIFY [5] BASED ON THE FUNCTION FILE_SELECTOR'S FOLDER PATH !!
+     x = x.split(".")[1].split(".")[0].split("/")[-1]
+     print("X IS ")
+     print(x)
+     x = str(x)
+     z = df_actual[df_actual['file_name'].str.contains(x)]
+    #print(df_actual['file_name']+str("IS THE PATIENT!"))
+     m = z['label']
+     m = np.array(m)
+     if(m == [1]):
+        print("patient normal")
+        st.text("SUBJECT ECG NORMAL")
+     elif(m == [-1]):
+        print("patient abnormal")
+        st.text("SUBJECT ECG ABNORMAL")
+     else:
+        # ground truth not provided
+        st.text("Ground Truth Inconclusive Result (~)")
+    
 

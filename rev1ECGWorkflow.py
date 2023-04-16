@@ -67,10 +67,10 @@ def r1ecg_lr_vanillaAE(waveform_path1):
     model.build(input_shape=(None, 3600))
 
     # abhi path!!
-    model.load_weights("/users/abhinandganesh/Downloads/autoencoder_weights.h5")
+    # model.load_weights("/users/abhinandganesh/Downloads/autoencoder_weights.h5")
 
     # DONT DELETE !! ROSHNI PATH
-    #model.load_weights('C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/autoencoder_weights.h5')
+    model.load_weights('C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/autoencoder_weights.h5')
 
     x = model.encoder(wave_tf)
     print(x)
