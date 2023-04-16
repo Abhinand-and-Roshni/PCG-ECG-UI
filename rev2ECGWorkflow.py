@@ -179,8 +179,6 @@ def r2workflow_lstmvanillahybrid(waveform_path):
         latent_representation_of_vanilla=latent_representation_of_vanilla.numpy()
         print("Vanilla latent representation: ",latent_representation_of_vanilla)
         
-
-
         #CONCATENATION OF THE LATENT REPRESENTATIONS
         combined_latent_representation = np.concatenate([latent_representation, latent_representation_of_vanilla], axis=1)
     except ValueError:

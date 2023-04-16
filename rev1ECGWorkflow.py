@@ -83,10 +83,10 @@ def r1ecg_lr_vanillaAE(waveform_path1):
         weights1 = pkl.load(f)
 
     xx = xx1 * weights1 * weights1
-    print("line 91: ")
-    print(xx)
-    print("line 92: ")
-    print(xx1)
+    # print("line 91: ")
+    # print(xx)
+    # print("line 92: ")
+    # print(xx1)
 
     with open( "./model_folder/LR_Bayes_16.pkl", "rb" ) as f:
         LRB = pkl.load(f)
@@ -122,4 +122,3 @@ def r1ecg_lr_vanillaAE(waveform_path1):
     else:
         # ground truth not provided
         st.text("Ground Truth Inconclusive Result (~)")
-

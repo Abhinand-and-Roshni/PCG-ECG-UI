@@ -2,15 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 # from tensorflow.core.framework import types_pb2
-
 # from tensorflow.keras.optimizers import Adam
 # import tensorflow.keras
 from keras.models import load_model
 import cv2
 
-
 def prediction_8_cluster(path, waveform_path):
-
         print("entered pcgspec_prediction file")
         model=load_model('./model_folder/DENSENET.h5')
         #optimizer = Adam(learning_rate=0.0002, beta_1=0.9, beta_2=0.9997, epsilon=0.0001, decay=0.0)
@@ -20,7 +17,6 @@ def prediction_8_cluster(path, waveform_path):
         img=cv2.resize(img,(64,64))
         img=np.reshape(img,[1,64,64,3])
         classes=model.predict(img)
-
         prediction=np.argmax(classes,axis=1)
         print("PREDICTION FOR DL:",prediction)
 
@@ -29,9 +25,6 @@ def prediction_8_cluster(path, waveform_path):
             st.text("SUBJECT PCG NORMAL")
         else:
             st.text("SUBJECT PCG ABNORMAL")
-
-
-
         st.text("-- ACTUAL RESULT FOR FILE " + waveform_path + " -- ")
         df_actual = pd.read_csv("REFERENCE.csv")
         x = waveform_path

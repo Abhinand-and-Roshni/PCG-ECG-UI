@@ -65,7 +65,6 @@ def file_selector(folder_path='./TestData/'):
 
 waveform_path = file_selector()
 
-# Import local Libraries
 sys.path.insert(0, os.path.dirname(os.getcwd()))
 tab1, tab2 = st.tabs(["Phase I", "Phase II"])
 #============= PHASE 2 wORFLOW STARTS =================================================================================================
@@ -81,7 +80,7 @@ with tab2:
         print("35:",waveform_path.split(".")[2])
         if(waveform_path.split(".")[2]== 'wav'):
             waveform_path1 = waveform_path.replace('wav', 'mat')
-            print("**38:",waveform_path1)
+            #print("**38:",waveform_path1)
             if(os.path.exists(waveform_path1) == True):
                 #waveform_path = waveform_path1
                 print("96: ",waveform_path)
@@ -95,8 +94,6 @@ with tab2:
             st.success('File successfully loaded!')
             st.form_submit_button(label='Predict!')
             r2workflow_lstmae(waveform_path1)
-            
-        
 
         st.subheader("ECG Classification using VanillaAE-LSTMAE Hybrid Latent Representation")
         #st.subheader("Review 2")
@@ -106,10 +103,6 @@ with tab2:
             submit_button = st.form_submit_button(label='Predict!')
             r2workflow_lstmvanillahybrid(waveform_path1)
 
-
-# < TO INSERt BEST HYBRID ENCODER DECODER MODEL > 
-
-
         st.markdown("""---""")
         st.title("REVIEW I - BEST MODELS:")
         st.markdown("""---""")
@@ -117,10 +110,10 @@ with tab2:
         #*****************REVIEW 1*****************************************************************
         st.title("ECG Classification using Autoencoders and LR-Bayes Method")
         #st.subheader("Review 1")
-        print("35:",waveform_path.split(".")[2])
+        #print("35:",waveform_path.split(".")[2])
         if(waveform_path.split(".")[2]== 'wav'):
             waveform_path1 = waveform_path.replace('wav', 'mat')
-            print("**38:",waveform_path1)
+            #print("**38:",waveform_path1)
             if(os.path.exists(waveform_path1) == True):
                 #waveform_path = waveform_path1
                 print("96: ",waveform_path)
@@ -141,9 +134,6 @@ with tab2:
 
 
     
-
-
-
 #===============PHASE 1 WORKFLOW=================================================================================================
 with tab1:
     #st.header("PHASE I (July 2022 - December 2022)")
@@ -171,8 +161,6 @@ with tab1:
 
             pred_path = "cluster_spec_img.jpg"
             prediction_8_cluster(pred_path, waveform_path)
-
-
 
         except ValueError:
                 st.error('Please enter WAV File!')
@@ -202,9 +190,6 @@ with tab1:
         # except EOFError:
         #     st.error('Please enter WAV file!')
         
-
-
-
 
     st.title("ECG CLASSIFICATION - BEST MODEL")
     print("35:",waveform_path.split(".")[2])
@@ -240,11 +225,6 @@ with tab1:
             st.error('Please enter MAT File!')
         except ValueError:
             st.error('Entered file should be of MAT type!')
-
-
-
-
-
 
         #waveform_path = "C:/Users/Roshni/Downloads/A03035.mat"
         # print(waveform_path)
