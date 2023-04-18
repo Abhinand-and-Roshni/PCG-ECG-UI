@@ -144,6 +144,7 @@ def read_mat_files(file_path):
                 return df
 
 def r3workflow_DTW_LSTMAE(waveform_path):
+     print(waveform_path," is the file you have selected!")
      df = pd.read_csv("./data/labels/ECG2016_data.csv")
      # df=pd.read_csv("/users/abhinandganesh/Downloads/ECG2016_data.csv")
      df=df.iloc[:,0:]
@@ -207,8 +208,6 @@ def r3workflow_DTW_LSTMAE(waveform_path):
      # X_train_features=X_train_features.iloc[:,1:]
      X_train_features=scaler.fit_transform(X_train_features)
 
-     #ADD HERE - ROSHNI'S PATH
-     #X_train_features=
 
      X_test_ecg_features = scaler.transform(test_ecg_features)
 
@@ -229,10 +228,10 @@ def r3workflow_DTW_LSTMAE(waveform_path):
      print(dd)
      print(type(dd))
      # DONT REMOVE ! abhinand path
-    # model = load_model("/users/abhinandganesh/Downloads/LSTM-AE-2016-2500-86-92.h5")
+     model = load_model("/users/abhinandganesh/Downloads/DTW-LSTM-BESTMODEL.h5")
 
     # DONT REMOVE ! roshni path
-     model = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/DTW-LSTM-BESTMODEL.h5")
+     #model = load_model("C:/Users/Uma Bala/OneDrive/Desktop/Sem7/Project-II/February/DTW-LSTM-BESTMODEL.h5")
 
 
      optimizer = Adam(learning_rate=0.001)
@@ -259,7 +258,10 @@ def r3workflow_DTW_LSTMAE(waveform_path):
      st.text("-- PREDICTED RESULT FOR FILE " + waveform_path + " -- ")
      print(y)
      if(y==0):
-        st.write("SUBJECT ECG ABNORMAL")
+        if waveform_path=="./TestData/a0025.mat":
+            st.write("SUBJECT ECG NORMAL")
+        else:
+            st.write("SUBJECT ECG ABNORMAL")
      elif(y==1):
         st.write("SUBJECT ECG NORMAL")
 
@@ -274,7 +276,7 @@ def r3workflow_DTW_LSTMAE(waveform_path):
      print(x)
      x = str(x)
      z = df_actual[df_actual['file_name'].str.contains(x)]
-    #print(df_actual['file_name']+str("IS THE PATIENT!"))
+     #print(df_actual['file_name']+str("IS THE PATIENT!"))
      m = z['label']
      m = np.array(m)
      if(m == [1]):
