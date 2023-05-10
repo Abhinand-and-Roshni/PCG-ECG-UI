@@ -20,3 +20,4 @@ The project utilizes two datasets, PhysioNet/CinC-2016 and PhysioNet/CinC-2017, 
 
 
 ## <a href="https://drive.google.com/file/d/1j_2tzZEQsAhnISMbvC4GBdEIiCbt0Xo9/view?usp=sharing">Phase 1 Report</a>
+## <a href="https://drive.google.com/file/d/1XgLbJHHdcpWJxhBuDStAcUPrilQssCH1/view?usp=sharing">Phase 2 Report</a>
