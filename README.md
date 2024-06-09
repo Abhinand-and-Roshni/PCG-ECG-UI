@@ -16,4 +16,4 @@ The project utilizes two datasets, PhysioNet/CinC-2016 and PhysioNet/CinC-2017, 
 
 # Publications arising out of this Project
 
-1. Dr R Geetha Ramani, Abhinand G, Roshni Balasubramanian, Aruna Srikamakshi R - <b>"Application of Phonocardiogram and Electrocardiogram Signal Features in Cardiovascular Abnormality Recognition"</b>, Presented in the <i>IFIP 7th International Conference on Computer, Communication and Signal Processing (ICCCSP - 23)</i> at SSN College of Engineering, Chennai, India. (Yet to be published)
+1. <a href="https://link.springer.com/chapter/10.1007/978-3-031-39811-7_16">Dr R Geetha Ramani, Abhinand G, Roshni Balasubramanian, Aruna Srikamakshi R - <b>"Application of Phonocardiogram and Electrocardiogram Signal Features in Cardiovascular Abnormality Recognition"</b>, Presented in the <i>IFIP 7th International Conference on Computer, Communication and Signal Processing (ICCCSP - 23)</i> at SSN College of Engineering, Chennai, India. </a>
